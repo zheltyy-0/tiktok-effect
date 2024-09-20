@@ -39,8 +39,16 @@
     <button onclick="activateCamera()">Ativar Câmera</button>
     <script>
         function activateCamera() {
-            alert("Acesso à câmera solicitado!");
-            // Lógica para ativar a câmera (hipoteticamente)
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    let videoElement = document.createElement('video');
+                    videoElement.srcObject = stream;
+                    videoElement.play();
+                    document.body.appendChild(videoElement);
+                })
+                .catch(function(error) {
+                    alert("Erro ao acessar a câmera: " + error);
+                });
         }
     </script>
 </body>
